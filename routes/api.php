@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MonthlyAttendanceController;
 use App\Http\Controllers\PhotoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +32,11 @@ Route::prefix("v1")->group(function () {
             Route::post("logout-all", 'logoutFromAllDevices');
             Route::put("update-password", 'updatePassword');
         });
+
+        Route::post('/attendance', [AttendanceController::class, "incrementAttendance"]);
+        Route::post('/attendance/index', [AttendanceController::class, "index"]);
+
+        Route::post('/monthly/index', [MonthlyAttendanceController::class, "index"]);
     });
 
     Route::post('/login', [AuthController::class, 'login']);

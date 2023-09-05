@@ -100,7 +100,7 @@ class AuthController extends Controller
         return $this->success('User successfully signed in', [
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60,
+            'expires_in' => auth('api')->factory()->getTTL() * 1,
             'user' => auth()->user(),
         ]);
     }
@@ -114,11 +114,16 @@ class AuthController extends Controller
             ], 404);
         }
 
-        $users = User::all();
-        return response()->json([
-            "message" => "User Lists",
-            "users" => $users
-        ], 200);
+        $users = User::searchQuery()
+            ->sortingQuery()
+            ->paginationQuery();
+
+        return $this->success("User List", $users);
+
+        // return response()->json([
+        //     "message" => "User Lists",
+        //     "users" => $users
+        // ], 200);
     }
 
     public function checkUserProfile($id)
@@ -139,7 +144,8 @@ class AuthController extends Controller
 
         return response()->json([
             "message" => "User",
-            "users" => $user
+            "data" => $user
+
         ], 200);
     }
 
@@ -149,7 +155,7 @@ class AuthController extends Controller
 
         return response()->json([
             "message" => "Your Profile",
-            "user-profile" => $profile
+            "data" => $profile
         ], 200);
     }
 
