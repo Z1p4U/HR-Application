@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone');
             $table->enum('role', ['admin', 'permanent', "probation"])->default('probation');
             $table->string("position");
-            $table->longText('jd');
+            $table->longText('jd')->nullable();
             $table->boolean('agree')->default(false);
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();

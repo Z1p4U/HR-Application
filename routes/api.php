@@ -25,7 +25,7 @@ Route::prefix("v1")->group(function () {
             Route::get('user-lists', 'showUserLists');
             Route::get('your-profile', 'yourProfile');
             Route::get('user-profile/{id}', 'checkUserProfile');
-            Route::put('edit', "edit");
+            Route::put('edit/{id}', "edit");
             Route::post("logout", 'logout');
             Route::post("logout-all", 'logoutFromAllDevices');
             Route::put("update-password", 'updatePassword');

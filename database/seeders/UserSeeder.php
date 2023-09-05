@@ -18,8 +18,10 @@ class UserSeeder extends Seeder
             "name" => "admin",
             "email" => "admin@gmail.com",
             "position" => "Founder",
+            "phone" => "0988998899",
             "role" => "admin",
-            "agree" => false,
+            "jd" => "abcdefghijklmnopqrstuvwxyz",
+            "agree" => true,
             "password" => Hash::make("asdffdsa"),
         ]);
 
@@ -27,8 +29,10 @@ class UserSeeder extends Seeder
             "name" => "permanent",
             "email" => "permanent@gmail.com",
             "position" => "Content Creator",
+            "phone" => "0999887766",
             "role" => "permanent",
-            "agree" => false,
+            "jd" => "abcdefghijklmnopqrstuvwxyz",
+            "agree" => true,
             "password" => Hash::make("asdffdsa"),
         ]);
 
@@ -36,8 +40,10 @@ class UserSeeder extends Seeder
             "name" => "probation",
             "email" => "probation@gmail.com",
             "position" => "Graphic Designer",
+            "phone" => "0944332211",
+            "jd" => "abcdefghijklmnopqrstuvwxyz",
             "role" => "probation",
-            "agree" => false,
+            "agree" => true,
             "password" => Hash::make("asdffdsa"),
         ]);
     }

@@ -157,27 +157,32 @@ class AuthController extends Controller
     {
         $payload = collect($request->validated());
 
-        $user = User::create($payload->toArray());
-
         if (Auth::user()->role !== "admin") {
             return response()->json([
                 "message" => "You Are Not Allowed"
             ], 404);
         }
 
+        $user = User::create($payload->toArray());
+
+
         return response()->json([
             "message" => "user register successfully",
             "data" => $user
-        ]);
+        ], 200);
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
         $request->validate([
             "name" => "required|min:3|max:20",
+            "role" => "required",
+            "position" => "required",
+            "jd" => "required",
+            "phone" => "required",
         ]);
 
-        $user = User::find(Auth::id());
+        $user = User::find($id);
         if (is_null($user)) {
             return response()->json([
                 "message" => "User not found"
@@ -192,6 +197,10 @@ class AuthController extends Controller
 
         if ($request->has('name')) {
             $user->name = $request->name;
+            $user->role = $request->role;
+            $user->position = $request->position;
+            $user->jd = $request->jd;
+            $user->phone = $request->phone;
         }
 
         $user->update();

@@ -25,6 +25,7 @@ class UserStoreRequest extends FormRequest
             "name" => "required|min:3|max:20",
             "email" => "email|required|unique:users",
             "jd" => "required",
+            "role" => "required",
             "phone" => "required|unique:users,phone",
             "agree" => "required|boolean",
             "position" => "required",
