@@ -14,14 +14,15 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        $attendance = Attendance::searchQuery()
+        $attendance = Attendance::with(['user'])
+            ->searchQuery()
             ->sortingQuery()
             ->paginationQuery();
 
         return $this->success("Attendance List", $attendance);
     }
 
-    public function incrementAttendance()
+    public function checkIn()
     {
         $user = Auth::user();
 
@@ -30,39 +31,59 @@ class AttendanceController extends Controller
         $today = now()->toDateString();
         $time = now()->toTimeString();
 
-        $existingAttendance = $user->attendances()->where('attendance_date', $today)->first();
+        $existingAttendance = $user->attendances()->whereDate('attendance_date', $today)->first();
+
+        if (!$existingAttendance) {
+            $attendance = new Attendance();
+            $attendance->attendance_year = $now->year;
+            $attendance->attendance_month = $now->format('F');
+            $attendance->attendance_day = $now->day;
+            $attendance->attendance_date = $today;
+            $attendance->checked_in_time = $time;
+            $attendance->attendance_count = 1;
+
+            $user->attendances()->save($attendance);
+
+
+            $monthlySummary = MonthlyAttendance::updateOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                    'attendance_month' => $attendance->attendance_month,
+                    'attendance_year' => $attendance->attendance_year,
+                ],
+                ['attendance_count' => \DB::raw('attendance_count + 1')]
+            );
+            return response()->json(["message" => "Checked in successfully"]);
+        } else {
+            return response()->json(["error" => "You already Checked In today."]);
+        }
+    }
+
+    public function checkOut()
+    {
+        $user = Auth::user();
+
+        $now = Carbon::now();
+        $today = now()->toDateString();
+        $time = now()->toTimeString();
+
+        $existingAttendance = $user->attendances()->whereDate('attendance_date', $today)->first();
 
         // if ($existingAttendance) {
-        //     return response()->json(["error" => "You already Checked In today."]);
+        //     return response()->json(["error" => "You already Checked Out today."]);
         // }
 
-        // $user->attendances()->create([
-        //     'attendance_date' => $today,
-        //     'attendance_count' => 1,
-        // ]);
-
-        $attendance = new Attendance();
-        $attendance->attendance_year = $now->year;
-        $attendance->attendance_month = $now->format('F');
-        $attendance->attendance_day = $now->day;
-        $attendance->attendance_date = $today;
-        $attendance->attendance_time = $time;
-        $attendance->attendance_count = 1;
-
-        $user->attendances()->save($attendance);
+        $attendance = $user->attendances()->whereDate('attendance_date', $today)->latest()->first();
 
 
-        $monthlySummary = MonthlyAttendance::updateOrCreate(
-            [
-                'user_id' => $user->id,
-                'user_name' => $user->name,
-                'attendance_month' => $attendance->attendance_month,
-                'attendance_year' => $attendance->attendance_year,
-            ],
-            ['attendance_count' => \DB::raw('attendance_count + 1')]
-        );
+        if ($attendance) {
+            $attendance->checked_out_time = $time;
+            $attendance->update(['checked_out_time' => $time]);
 
-        return response()->json(["message" => "Checked in successfully"]);
-        // return redirect()->back()->with('success', 'Attendance incremented successfully.');
+            return response()->json(["message" => "Checked out successfully"]);
+        } else {
+            return response()->json(["message" => "You haven't checked in yet!"]);
+        }
     }
 }

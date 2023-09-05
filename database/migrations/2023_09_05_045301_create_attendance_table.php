@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string("attendance_month");
             $table->string("attendance_day");
             $table->string("attendance_date");
-            $table->string("attendance_time");
+            $table->string("checked_in_time")->nullable();
+            $table->string("checked_out_time")->nullable();
             $table->string("attendance_count");
             $table->timestamps();
         });

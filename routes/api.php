@@ -33,10 +33,11 @@ Route::prefix("v1")->group(function () {
             Route::put("update-password", 'updatePassword');
         });
 
-        Route::post('/attendance', [AttendanceController::class, "incrementAttendance"]);
-        Route::post('/attendance/index', [AttendanceController::class, "index"]);
+        Route::post('/check-in', [AttendanceController::class, "checkIn"]);
+        Route::post('/check-out', [AttendanceController::class, "checkOut"]);
+        Route::get('/attendance/index', [AttendanceController::class, "index"]);
 
-        Route::post('/monthly/index', [MonthlyAttendanceController::class, "index"]);
+        Route::get('/monthly/index', [MonthlyAttendanceController::class, "index"]);
     });
 
     Route::post('/login', [AuthController::class, 'login']);
