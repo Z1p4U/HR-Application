@@ -31,6 +31,9 @@ class LeaveRequestController extends Controller
         $request->validate([
             'leave_type' => 'required|in:annual_leave,casual_leave,probation_leave,unpaid_leave', // Validate the type
             'requested_days' => 'required|integer|min:1',
+            'reason' => "required",
+            'date' => "required|array",
+            'date.*' => "string"
         ]);
 
         $user = Auth::user();
@@ -45,6 +48,8 @@ class LeaveRequestController extends Controller
             'user_id' => Auth::id(),
             "user_name" => $user->name,
             'leave_type' => $request->leave_type,
+            "reason" => $request->reason,
+            "date" => $request->date,
             'requested_days' => $request->requested_days,
             "annual_leave_left" => $user->annual_leave,
             "casual_leave_left" => $user->casual_leave,

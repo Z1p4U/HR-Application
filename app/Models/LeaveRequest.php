@@ -9,7 +9,11 @@ class LeaveRequest extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["leave_type", "user_id", "user_name", "annual_leave_left", "casual_leave_left", "probation_leave_left", "unpaid_leave_left", "requested_days", "status"];
+    protected $fillable = ["leave_type", "user_id", "user_name", "reason", "date", "annual_leave_left", "casual_leave_left", "probation_leave_left", "unpaid_leave_left", "requested_days", "status"];
+
+    protected $casts = [
+        'date' => 'array',
+    ];
 
     public function user()
     {

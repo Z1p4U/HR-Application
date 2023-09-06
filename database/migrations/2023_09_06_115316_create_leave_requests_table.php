@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId("user_id");
             $table->string("user_name");
             $table->string("leave_type");
+            $table->string("reason");
+            $table->json("date");
             $table->integer("requested_days");
             $table->integer("annual_leave_left");
             $table->integer("casual_leave_left");
