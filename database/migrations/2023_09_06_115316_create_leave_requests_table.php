@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('monthly_attendances', function (Blueprint $table) {
+        Schema::create('leave_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->string('user_name');
+            $table->foreignId("user_id");
+            $table->string("user_name");
+            $table->string("leave_type");
+            $table->integer("requested_days");
             $table->integer("annual_leave_left");
             $table->integer("casual_leave_left");
             $table->integer("probation_leave_left");
             $table->integer("unpaid_leave_left");
-            $table->string('attendance_month');
-            $table->year('attendance_year');
-            $table->integer('attendance_count')->default(0);
+            $table->string("status")->default("pending");
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('monthly_attendances');
+        Schema::dropIfExists('leave_requests');
     }
 };

@@ -71,4 +71,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(MonthlyAttendance::class);
     }
+
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class);
+    }
 }

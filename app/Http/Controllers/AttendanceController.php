@@ -52,6 +52,10 @@ class AttendanceController extends Controller
                 [
                     'user_id' => $user->id,
                     'user_name' => $user->name,
+                    "annual_leave_left" => $user->annual_leave,
+                    "casual_leave_left" => $user->casual_leave,
+                    "probation_leave_left" => $user->probation_leave,
+                    "unpaid_leave_left" => $user->unpaid_leave,
                     'attendance_month' => $attendance->attendance_month,
                     'attendance_year' => $attendance->attendance_year,
                 ],
@@ -59,7 +63,7 @@ class AttendanceController extends Controller
             );
             return response()->json(["message" => "Checked in successfully", "status" => 200], 200);
         } else {
-            return response()->json(["error" => "You already Checked In today.", "status" => 404], 404);
+            return response()->json(["message" => "You already Checked In today.", "status" => 500], 500);
         }
     }
 
@@ -77,7 +81,7 @@ class AttendanceController extends Controller
             ->first();
 
         if ($existingAttendance) {
-            return response()->json(["error" => "You already Checked Out today.", "status" => 404], 404);
+            return response()->json(["message" => "You already Checked Out today.", "status" => 500], 500);
         }
 
         $attendance = $user->attendances()
@@ -92,7 +96,7 @@ class AttendanceController extends Controller
 
             return response()->json(["message" => "Checked out successfully", "status" => 200], 200);
         } else {
-            return response()->json(["error" => "You haven't checked in yet!", "status" => 404], 404);
+            return response()->json(["message" => "You haven't checked in yet!", "status" => 500], 500);
         }
     }
 }

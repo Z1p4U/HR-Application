@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\MonthlyAttendanceController;
-use App\Http\Controllers\PhotoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,11 +33,18 @@ Route::prefix("v1")->group(function () {
             Route::put("update-password", 'updatePassword');
         });
 
-        Route::post('/check-in', [AttendanceController::class, "checkIn"]);
-        Route::post('/check-out', [AttendanceController::class, "checkOut"]);
-        Route::get('/attendance/index', [AttendanceController::class, "index"]);
+        Route::controller(AttendanceController::class)->group(function () {
+            Route::post('check-in', "checkIn");
+            Route::post('check-out', "checkOut");
+            Route::get('attendance/index', 'index');
+        });
 
         Route::get('/monthly/index', [MonthlyAttendanceController::class, "index"]);
+
+        Route::post('/leave/request', [LeaveRequestController::class, "requestLeave"]);
+        Route::get('/leave/request/list', [LeaveRequestController::class, "listLeaveRequests"]);
+        Route::put('/leave/approve/{leaveRequest}', [LeaveRequestController::class, "approveLeave"]);
+        Route::put('/leave/denies/{leaveRequest}', [LeaveRequestController::class, "denyLeave"]);
     });
 
     Route::post('/login', [AuthController::class, 'login']);

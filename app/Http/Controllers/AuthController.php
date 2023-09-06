@@ -151,8 +151,7 @@ class AuthController extends Controller
 
     public function yourProfile()
     {
-        $profile = User::where("id", Auth::id())->latest("id")->get();
-
+        $profile = User::where("id", Auth::id())->latest("id")->first();
         return response()->json([
             "message" => "Your Profile",
             "data" => $profile
