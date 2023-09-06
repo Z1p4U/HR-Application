@@ -31,7 +31,10 @@ class AttendanceController extends Controller
         $today = now()->toDateString();
         $time = now()->toTimeString();
 
-        $existingAttendance = $user->attendances()->whereDate('attendance_date', $today)->first();
+        $existingAttendance = $user->attendances()
+            ->whereDate('attendance_date', $today)
+            ->whereNotNull('checked_in_time')
+            ->first();
 
         if (!$existingAttendance) {
             $attendance = new Attendance();
@@ -54,9 +57,9 @@ class AttendanceController extends Controller
                 ],
                 ['attendance_count' => \DB::raw('attendance_count + 1')]
             );
-            return response()->json(["message" => "Checked in successfully"]);
+            return response()->json(["message" => "Checked in successfully", "status" => 200], 200);
         } else {
-            return response()->json(["error" => "You already Checked In today."]);
+            return response()->json(["error" => "You already Checked In today.", "status" => 404], 404);
         }
     }
 
@@ -68,22 +71,28 @@ class AttendanceController extends Controller
         $today = now()->toDateString();
         $time = now()->toTimeString();
 
-        $existingAttendance = $user->attendances()->whereDate('attendance_date', $today)->first();
+        $existingAttendance = $user->attendances()
+            ->whereDate('attendance_date', $today)
+            ->whereNotNull('checked_out_time')
+            ->first();
 
-        // if ($existingAttendance) {
-        //     return response()->json(["error" => "You already Checked Out today."]);
-        // }
+        if ($existingAttendance) {
+            return response()->json(["error" => "You already Checked Out today.", "status" => 404], 404);
+        }
 
-        $attendance = $user->attendances()->whereDate('attendance_date', $today)->latest()->first();
-
+        $attendance = $user->attendances()
+            ->whereDate('attendance_date', $today)
+            ->whereNotNull('checked_in_time')
+            ->whereNull('checked_out_time')
+            ->first();
 
         if ($attendance) {
             $attendance->checked_out_time = $time;
             $attendance->update(['checked_out_time' => $time]);
 
-            return response()->json(["message" => "Checked out successfully"]);
+            return response()->json(["message" => "Checked out successfully", "status" => 200], 200);
         } else {
-            return response()->json(["message" => "You haven't checked in yet!"]);
+            return response()->json(["error" => "You haven't checked in yet!", "status" => 404], 404);
         }
     }
 }
