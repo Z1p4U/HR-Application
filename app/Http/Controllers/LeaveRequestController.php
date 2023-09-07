@@ -38,6 +38,12 @@ class LeaveRequestController extends Controller
         // Retrieve the list of leave requests
         $leaveRequests = LeaveRequest::find($id);
 
+        if ($leaveRequests === null) {
+            return response()->json([
+                "message" => "Leave Request Not Found"
+            ], 404);
+        }
+
 
         // return response()->json(['data' => $leaveRequests, "message" => "Leave Request"], 200);
         return $this->success("Leave Request Detail", $leaveRequests);
@@ -82,11 +88,19 @@ class LeaveRequestController extends Controller
         ], 200);
     }
 
-    public function approveLeave(Request $request, LeaveRequest $leaveRequest)
+    public function approveLeave($id)
     {
         if (Auth::user()->role !== "admin") {
             return response()->json([
                 "message" => "You Are Not Allowed"
+            ], 404);
+        }
+
+        $leaveRequest = LeaveRequest::find($id);
+
+        if (is_null($leaveRequest)) {
+            return response()->json([
+                "message" => "Leave Request Not Found"
             ], 404);
         }
 
@@ -109,11 +123,19 @@ class LeaveRequestController extends Controller
         ], 200);
     }
 
-    public function denyLeave(Request $request, LeaveRequest $leaveRequest)
+    public function denyLeave(Request $request, $id)
     {
         if (Auth::user()->role !== "admin") {
             return response()->json([
                 "message" => "You Are Not Allowed"
+            ], 404);
+        }
+
+        $leaveRequest = LeaveRequest::find($id);
+
+        if (is_null($leaveRequest)) {
+            return response()->json([
+                "message" => "Leave Request Not Found"
             ], 404);
         }
 

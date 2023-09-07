@@ -41,11 +41,13 @@ Route::prefix("v1")->group(function () {
 
         Route::get('/monthly/index', [MonthlyAttendanceController::class, "index"]);
 
-        Route::post('/leave/request', [LeaveRequestController::class, "requestLeave"]);
-        Route::get('/leave/request/list', [LeaveRequestController::class, "listLeaveRequests"]);
-        Route::get('/leave/request/detail/{id}', [LeaveRequestController::class, "leaveRequestsDetail"]);
-        Route::put('/leave/approve/{leaveRequest}', [LeaveRequestController::class, "approveLeave"]);
-        Route::put('/leave/denies/{leaveRequest}', [LeaveRequestController::class, "denyLeave"]);
+        Route::controller(LeaveRequestController::class)->prefix("leave")->group(function () {
+            Route::post('request', "requestLeave");
+            Route::get('request/list', "listLeaveRequests");
+            Route::get('request/detail/{id}', "leaveRequestsDetail");
+            Route::put('approve/{id}', "approveLeave");
+            Route::put('denies/{id}', "denyLeave");
+        });
     });
 
     Route::post('/login', [AuthController::class, 'login']);
