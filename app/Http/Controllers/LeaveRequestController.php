@@ -23,7 +23,8 @@ class LeaveRequestController extends Controller
             ->sortingQuery()
             ->paginationQuery();
 
-        return response()->json(['leave_request' => $leaveRequests], 200);
+        // return response()->json(['data' => $leaveRequests, "message" => "Leave Request"], 200);
+        return $this->success("Leave Request List", $leaveRequests);
     }
 
     public function requestLeave(Request $request)
