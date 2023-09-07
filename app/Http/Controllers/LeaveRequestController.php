@@ -27,6 +27,22 @@ class LeaveRequestController extends Controller
         return $this->success("Leave Request List", $leaveRequests);
     }
 
+    public function leaveRequestsDetail($id)
+    {
+        if (Auth::user()->role !== "admin") {
+            return response()->json([
+                "message" => "You Are Not Allowed"
+            ], 404);
+        }
+
+        // Retrieve the list of leave requests
+        $leaveRequests = LeaveRequest::find($id);
+
+
+        // return response()->json(['data' => $leaveRequests, "message" => "Leave Request"], 200);
+        return $this->success("Leave Request Detail", $leaveRequests);
+    }
+
     public function requestLeave(Request $request)
     {
         $request->validate([

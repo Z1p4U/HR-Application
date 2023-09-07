@@ -150,8 +150,14 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/leave/approve/{id}
 https://api.hr.yolodigitalmyanmar.com/api/v1/leave/denies/{id}
 ```
 
-#### Leave Request List (Get)
+#### Leave Request List (Get) - (Admin Only)
 
 ```https
 https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/list
+```
+
+#### Leave Request Detail (Get) - (Admin Only)
+
+```https
+https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/detail/{id}
 ```
