@@ -112,6 +112,7 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/check-out
 ```
 
 Note : You can check in / out one time in each day
+Note : If Your check in time is late than 09:15 It will automatically add late count.
 
 ### Monthly Attendance
 
