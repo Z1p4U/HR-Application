@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("checked_in_time")->nullable();
             $table->string("checked_out_time")->nullable();
             $table->string("attendance_count");
+            $table->boolean("late_checkin")->default(false);
             $table->timestamps();
         });
     }

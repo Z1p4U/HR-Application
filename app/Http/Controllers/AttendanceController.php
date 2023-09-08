@@ -29,6 +29,7 @@ class AttendanceController extends Controller
         // Check if the user has already incremented attendance today
         $now = Carbon::now();
         $today = now()->toDateString();
+        // dd($today);
         $time = now()->toTimeString();
 
         $existingAttendance = $user->attendances()
@@ -37,6 +38,11 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$existingAttendance) {
+
+            $preferredCheckinTime = now()->copy()->setTime(9, 20, 0);
+            // dd($preferredCheckinTime);
+            $lateMark = now() > $preferredCheckinTime;
+
             $attendance = new Attendance();
             $attendance->attendance_year = $now->year;
             $attendance->attendance_month = $now->format('F');
@@ -44,9 +50,9 @@ class AttendanceController extends Controller
             $attendance->attendance_date = $today;
             $attendance->checked_in_time = $time;
             $attendance->attendance_count = 1;
+            $attendance->late_checkin = $lateMark;
 
             $user->attendances()->save($attendance);
-
 
             $monthlySummary = MonthlyAttendance::updateOrCreate(
                 [
@@ -59,8 +65,15 @@ class AttendanceController extends Controller
                     'attendance_month' => $attendance->attendance_month,
                     'attendance_year' => $attendance->attendance_year,
                 ],
-                ['attendance_count' => \DB::raw('attendance_count + 1')]
+                [
+                    'attendance_count' => \DB::raw('attendance_count + 1'),
+                ],
             );
+            if ($lateMark) {
+                $monthlySummary->increment('late_checkin_count');
+            }
+            $monthlySummary->save();
+
             return response()->json(["message" => "Checked in successfully", "status" => 200], 200);
         } else {
             return response()->json(["message" => "You already Checked In today.", "status" => 500], 500);
