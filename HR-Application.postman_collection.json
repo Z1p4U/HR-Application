@@ -25,12 +25,12 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Kyaw",
+									"value": "ZIP",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "asdffdsa@gmail.com",
+									"value": "thantzinhtet2001@gmail.com",
 									"type": "text"
 								},
 								{
@@ -455,7 +455,7 @@
 			"name": "Monthly Attendance",
 			"item": [
 				{
-					"name": "Monthly List",
+					"name": "Monthly Attendance Table",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -526,14 +526,14 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{base_url}}/leave/approve/2",
+							"raw": "{{base_url}}/leave/approve/3",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"leave",
 								"approve",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -551,14 +551,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/leave/denies/1",
+							"raw": "{{base_url}}/leave/denies/4s",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"leave",
 								"denies",
-								"1"
+								"4s"
 							]
 						}
 					},
@@ -591,6 +591,32 @@
 								"leave",
 								"request",
 								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/leave/request/detail/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"leave",
+								"request",
+								"detail",
+								"3"
 							]
 						}
 					},
