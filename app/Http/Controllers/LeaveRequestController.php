@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LeaveRequest;
+use App\Models\User;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,20 @@ class LeaveRequestController extends Controller
 
         // return response()->json(['data' => $leaveRequests, "message" => "Leave Request"], 200);
         return $this->success("Leave Request List", $leaveRequests);
+    }
+
+    public function yourLeaveRequestedRecord()
+    {
+        $user = LeaveRequest::where("user_id", Auth::id())
+            ->searchQuery()
+            ->sortingQuery()
+            ->paginationQuery();
+
+
+        return response()->json([
+            "message" => "Your Requested Record",
+            "data" => $user
+        ], 200);
     }
 
     public function leaveRequestsDetail($id)

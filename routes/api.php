@@ -43,6 +43,7 @@ Route::prefix("v1")->group(function () {
 
         Route::controller(LeaveRequestController::class)->prefix("leave")->group(function () {
             Route::post('request', "requestLeave");
+            Route::get('request/your-list', "yourLeaveRequestedRecord");
             Route::get('request/list', "listLeaveRequests");
             Route::get('request/detail/{id}', "leaveRequestsDetail");
             Route::put('approve/{id}', "approveLeave");
