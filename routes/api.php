@@ -31,6 +31,7 @@ Route::prefix("v1")->group(function () {
             Route::post("logout", 'logout');
             Route::post("logout-all", 'logoutFromAllDevices');
             Route::put("update-password", 'updatePassword');
+            Route::delete('delete-user/{id}', "deleteUser");
         });
 
         Route::controller(AttendanceController::class)->group(function () {

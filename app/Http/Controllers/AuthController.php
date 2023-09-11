@@ -227,6 +227,29 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+
+        if (is_null($user)) {
+            return response()->json([
+                "error" => "User not found"
+            ], 404);
+        }
+
+        if (Auth::user()->role !== "admin") {
+            return response()->json([
+                "message" => "You Are Not Allowed"
+            ], 404);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            "message" => "User Deleted Successfully",
+        ], 200);
+    }
+
     public function logoutFromAllDevices(Request $request)
     {
         $request->user()->tokens()->delete();
