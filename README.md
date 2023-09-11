@@ -29,10 +29,10 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/register
 | role                  | enum      | **Required** [admin,probation,permanent] |
 | position              | string    | **Required** Founder                     |
 | jd                    | long text | **Required** Job Description             |
-| annual_leave          | integer   | **Required** 0                           |
-| casual_leave          | integer   | **Required** 2                           |
-| probation_leave       | integer   | **Required** 3                           |
-| unpaid_leave          | integer   | **Required** 10                          |
+| annual_leave          | float     | **Required** 10                          |
+| casual_leave          | float     | **Required** 2                           |
+| probation_leave       | float     | **Required** 3                           |
+| unpaid_leave          | float     | **Required** 10                          |
 | password              | string    | **Required** asdffdsa                    |
 | password_confirmation | string    | **Required** asdffdsa                    |
 | agree                 | bool      | **Required** 1                           |
@@ -130,14 +130,17 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/monthly/index
 https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request
 ```
 
-| Arguments      | Type    | Description                               |
-| :------------- | :------ | :---------------------------------------- |
-| requested_days | integer | **Required** (1-10)                       |
-| leave_type     | integer | **Required** Read Note below              |
-| date           | array   | **Required** [ "2023-9-10", "2023-9-15" ] |
-| reason         | string  | **Required** any reason                   |
+| Arguments      | Type      | Description                               |
+| :------------- | :-------- | :---------------------------------------- |
+| half_day       | boolean   | **Required** true or false                |
+| requested_days | float     | **Sometimes** Read Note 1 below           |
+| leave_type     | string    | **Required** Read Note 2 below            |
+| date           | array     | **Required** [ "2023-9-10", "2023-9-15" ] |
+| reason         | long text | **Required** any reason                   |
 
-Note : leave_type should be one of [annual_leave,casual_leave,probation_leave,unpaid_leave]
+Note 1 : If half_day is true requested_days will automatically (0.5)s. If not requested_days will be inputted amount.
+
+Note 2 : leave_type should be one of [annual_leave,casual_leave,probation_leave,unpaid_leave].
 
 #### Approve Leave (Put) - (Admin Only)
 

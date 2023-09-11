@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('user_name');
-            $table->integer("annual_leave_left");
-            $table->integer("casual_leave_left");
-            $table->integer("probation_leave_left");
-            $table->integer("unpaid_leave_left");
+            $table->float("annual_leave_left");
+            $table->float("casual_leave_left");
+            $table->float("probation_leave_left");
+            $table->float("unpaid_leave_left");
             $table->string('attendance_month');
             $table->integer("late_checkin_count")->default(0);
             $table->year('attendance_year');
