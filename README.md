@@ -166,7 +166,7 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/list
 https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/detail/{id}
 ```
 
-#### Your Request Record (Get) - (Admin Only)
+#### Your Request Record (Get)
 
 ```https
 https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/your-list
