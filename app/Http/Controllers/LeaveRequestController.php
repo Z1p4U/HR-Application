@@ -53,7 +53,8 @@ class LeaveRequestController extends Controller
     {
         $request->validate([
             'leave_type' => 'required|in:annual_leave,casual_leave,probation_leave,unpaid_leave', // Validate the type
-            'requested_days' => 'required|integer|min:1',
+            'half_day' => "required|boolean",
+            // 'requested_days' => 'sometimes|numeric|min:0.5',
             'reason' => "required",
             'date' => "required|array",
             'date.*' => "string"
@@ -62,7 +63,10 @@ class LeaveRequestController extends Controller
         $user = Auth::user();
         // Check if the user has a positive leave balance for the requested leave type
         $leaveType = $request->leave_type;
-        if ($user->$leaveType <= $request->requested_days) {
+
+        $requested_days = $request->half_day ? 0.5 : $request->input('requested_days', 0);
+
+        if ($user->$leaveType < $requested_days) {
             return response()->json(['error' => 'Insufficient leave!'], 422);
         }
 
@@ -73,13 +77,15 @@ class LeaveRequestController extends Controller
             'leave_type' => $request->leave_type,
             "reason" => $request->reason,
             "date" => $request->date,
-            'requested_days' => $request->requested_days,
+            'half_day' => $request->half_day,
+            'requested_days' => $requested_days,
             "annual_leave_left" => $user->annual_leave,
             "casual_leave_left" => $user->casual_leave,
             "probation_leave_left" => $user->probation_leave,
             "unpaid_leave_left" => $user->unpaid_leave,
             'status' => 'pending', // Initially pending until approved
         ]);
+
 
         return response()->json([
             "message" => "Leave Requested Successfully!",
@@ -113,10 +119,18 @@ class LeaveRequestController extends Controller
         $leaveRequest->save();
 
         // Deduct the requested days from the user's leave balance
-        $user = $leaveRequest->user;
-        $leaveType = $leaveRequest->leave_type;
-        $user->$leaveType -= $leaveRequest->requested_days;
-        $user->save();
+
+        if ($leaveRequest->half_day) {
+            $user = $leaveRequest->user;
+            $leaveType = $leaveRequest->leave_type;
+            $user->$leaveType -= 0.5; // Deduct 0.5 days
+            $user->save();
+        } else {
+            $user = $leaveRequest->user;
+            $leaveType = $leaveRequest->leave_type;
+            $user->$leaveType -= $leaveRequest->requested_days;
+            $user->save();
+        }
 
         return response()->json([
             "message" => "Leave Approved Successfully!"

@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string("leave_type");
             $table->longText("reason");
             $table->json("date");
-            $table->integer("requested_days");
-            $table->integer("annual_leave_left");
-            $table->integer("casual_leave_left");
-            $table->integer("probation_leave_left");
-            $table->integer("unpaid_leave_left");
+            $table->boolean("half_day")->default(false);
+            $table->float("requested_days");
+            $table->float("annual_leave_left");
+            $table->float("casual_leave_left");
+            $table->float("probation_leave_left");
+            $table->float("unpaid_leave_left");
             $table->string("status")->default("pending");
             $table->timestamps();
         });

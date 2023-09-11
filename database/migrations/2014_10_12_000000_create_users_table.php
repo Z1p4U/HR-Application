@@ -19,10 +19,10 @@ return new class extends Migration
             $table->enum('role', ['admin', 'permanent', "probation"])->default('probation');
             $table->string("position");
             $table->longText('jd')->nullable();
-            $table->integer("annual_leave")->nullable();
-            $table->integer("casual_leave")->nullable();
-            $table->integer("probation_leave")->nullable();
-            $table->integer("unpaid_leave")->nullable();
+            $table->float("annual_leave")->nullable();
+            $table->float("casual_leave")->nullable();
+            $table->float("probation_leave")->nullable();
+            $table->float("unpaid_leave")->nullable();
             $table->boolean('agree')->default(false);
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
