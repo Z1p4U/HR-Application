@@ -30,6 +30,10 @@ class UserStoreRequest extends FormRequest
             "agree" => "required|boolean",
             "position" => "required",
             "password" => "required|confirmed|min:6",
+            "annual_leave" => "required|min:0",
+            "casual_leave" => "required|min:0",
+            "probation_leave" => "required|min:0",
+            "unpaid_leave" => "required|min:0",
         ];
     }
 }

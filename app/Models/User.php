@@ -29,7 +29,11 @@ class User extends Authenticatable implements JWTSubject
         "jd",
         "role",
         'position',
-        "agree"
+        "annual_leave",
+        "casual_leave",
+        "probation_leave",
+        "unpaid_leave",
+        "agree",
     ];
 
     /**

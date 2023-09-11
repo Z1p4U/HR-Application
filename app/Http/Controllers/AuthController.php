@@ -181,10 +181,16 @@ class AuthController extends Controller
     {
         $request->validate([
             "name" => "required|min:3|max:20",
-            "role" => "required",
-            "position" => "required",
+            "email" => "required|email",
             "jd" => "required",
+            "role" => "required",
             "phone" => "required",
+            "position" => "required",
+            "annual_leave" => "required|min:0",
+            "casual_leave" => "required|min:0",
+            "probation_leave" => "required|min:0",
+            "unpaid_leave" => "required|min:0",
+
         ]);
 
         $user = User::find($id);
@@ -202,10 +208,15 @@ class AuthController extends Controller
 
         if ($request->has('name')) {
             $user->name = $request->name;
+            $user->email = $request->email;
             $user->role = $request->role;
             $user->position = $request->position;
             $user->jd = $request->jd;
             $user->phone = $request->phone;
+            $user->annual_leave = $request->annual_leave;
+            $user->casual_leave = $request->casual_leave;
+            $user->probation_leave = $request->probation_leave;
+            $user->unpaid_leave = $request->unpaid_leave;
         }
 
         $user->update();

@@ -61,9 +61,18 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/user-lists
 https://api.hr.yolodigitalmyanmar.com/api/v1/edit
 ```
 
-| Arguments | Type  | Description              |
-| :-------- | :---- | :----------------------- |
-| name      | sting | **Required** Post Malone |
+| Arguments       | Type      | Description                              |
+| :-------------- | :-------- | :--------------------------------------- |
+| name            | sting     | **Required** Post Malone                 |
+| email           | string    | **Required** example@gmail.com           |
+| phone           | sting     | **Required** 0978786767                  |
+| role            | enum      | **Required** [admin,probation,permanent] |
+| position        | string    | **Required** Example                     |
+| jd              | long text | **Required** Job Description             |
+| annual_leave    | float     | **Required** 10                          |
+| casual_leave    | float     | **Required** 2                           |
+| probation_leave | float     | **Required** 3                           |
+| unpaid_leave    | float     | **Required** 10                          |
 
 #### Password Update (Put)
 
