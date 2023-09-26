@@ -18,6 +18,14 @@ class UserSeeder extends Seeder
             "name" => "admin",
             "email" => "admin@gmail.com",
             "position" => "admin",
+            "phone" => "09791314792",
+            "role" => "admin",
+            "jd" => "This is Admin JD",
+            "annual_leave" => 0,
+            "casual_leave" => 0,
+            "probation_leave" => 0,
+            "unpaid_leave" => 0,
+            "agree" => true,
             "password" => Hash::make("asdffdsa"),
         ]);
 
@@ -25,6 +33,14 @@ class UserSeeder extends Seeder
             "name" => "staff",
             "email" => "staff@gmail.com",
             "position" => "staff",
+            "phone" => "09791314792",
+            "role" => "admin",
+            "jd" => "This is Staff JD",
+            "annual_leave" => 0,
+            "casual_leave" => 0,
+            "probation_leave" => 0,
+            "unpaid_leave" => 0,
+            "agree" => true,
             "password" => Hash::make("asdffdsa"),
         ]);
     }

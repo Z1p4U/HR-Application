@@ -5,7 +5,7 @@
 #### Login (Post)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/login
+http://127.0.0.1:8000/api/v1/login
 ```
 
 | Arguments | Type   | Description                  |
@@ -18,7 +18,7 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/login
 #### Create User (Post) - (Admin Only)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/register
+http://127.0.0.1:8000/api/v1/register
 ```
 
 | Arguments             | Type      | Description                              |
@@ -40,25 +40,25 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/register
 #### Own Profile (Get)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/your-profile
+http://127.0.0.1:8000/api/v1/your-profile
 ```
 
 #### Check Specific User Profile (Get) - (Admin Only)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/user-profile/{id}
+http://127.0.0.1:8000/api/v1/user-profile/{id}
 ```
 
 #### Check User Lists (Get) - (Admin Only)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/user-lists
+http://127.0.0.1:8000/api/v1/user-lists
 ```
 
 #### Edit User Info(Get)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/edit
+http://127.0.0.1:8000/api/v1/edit
 ```
 
 | Arguments       | Type      | Description                              |
@@ -77,7 +77,7 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/edit
 #### Password Update (Put)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/update-password
+http://127.0.0.1:8000/api/v1/update-password
 ```
 
 | Arguments             | Type   | Description           |
@@ -89,13 +89,13 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/update-password
 #### Logout (Post)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/logout
+http://127.0.0.1:8000/api/v1/logout
 ```
 
 #### Logout from all devices(Post) - (Admin Only)
 
 ```http
-https://api.hr.yolodigitalmyanmar.com/api/v1/logout-all
+http://127.0.0.1:8000/api/v1/logout-all
 ```
 
 ## Attendance Management
@@ -105,19 +105,19 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/logout-all
 #### Attendance List (Get)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/attendance/index
+http://127.0.0.1:8000/api/v1/attendance/index
 ```
 
 #### Check In (Post)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/check-in
+http://127.0.0.1:8000/api/v1/check-in
 ```
 
 #### Check Out (Post)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/check-out
+http://127.0.0.1:8000/api/v1/check-out
 ```
 
 Note : You can check in / out one time in each day
@@ -129,7 +129,7 @@ Note : If Your check in time is late than 09:15 It will automatically add late c
 #### Monthly Attendance Record (Get) - (Admin Only)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/monthly/index
+http://127.0.0.1:8000/api/v1/monthly/index
 ```
 
 ## Requesting Leave
@@ -137,7 +137,7 @@ https://api.hr.yolodigitalmyanmar.com/api/v1/monthly/index
 #### Request Leave (Post)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request
+http://127.0.0.1:8000/api/v1/leave/request
 ```
 
 | Arguments      | Type      | Description                               |
@@ -155,29 +155,29 @@ Note 2 : leave_type should be one of [annual_leave,casual_leave,probation_leave,
 #### Approve Leave (Put) - (Admin Only)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/leave/approve/{id}
+http://127.0.0.1:8000/api/v1/leave/approve/{id}
 ```
 
 #### Denies Leave (Put) - (Admin Only)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/leave/denies/{id}
+http://127.0.0.1:8000/api/v1/leave/denies/{id}
 ```
 
 #### Leave Request List (Get) - (Admin Only)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/list
+http://127.0.0.1:8000/api/v1/leave/request/list
 ```
 
 #### Leave Request Detail (Get) - (Admin Only)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/detail/{id}
+http://127.0.0.1:8000/api/v1/leave/request/detail/{id}
 ```
 
 #### Your Request Record (Get)
 
 ```https
-https://api.hr.yolodigitalmyanmar.com/api/v1/leave/request/your-list
+http://127.0.0.1:8000/api/v1/leave/request/your-list
 ```
