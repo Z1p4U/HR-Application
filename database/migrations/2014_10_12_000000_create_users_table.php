@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->enum('role', ['admin', 'permanent', "probation"])->default('probation');
+            $table->enum('role', ['admin', 'permanent', "probation"])->nullable();
             $table->string("position");
             $table->longText('jd')->nullable();
             $table->float("annual_leave")->nullable();

@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CodeCheckController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\MonthlyAttendanceController;
+use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,4 +56,8 @@ Route::prefix("v1")->group(function () {
     });
 
     Route::post('/login', [AuthController::class, 'login']);
+
+    Route::post('/reset-psw', ResetPasswordController::class);
+    Route::post('/forgot-psw', ForgotPasswordController::class);
+    Route::post('/check-code', CodeCheckController::class);
 });

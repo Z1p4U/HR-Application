@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserStoreRequest;
+use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,11 +13,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password as FacadesPassword;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-
     // public function __construct()
     // {
     //     $this->middleware('auth:api', ['except' => ['login']]);
@@ -275,5 +278,26 @@ class AuthController extends Controller
         return response()->json([
             "message" => "Password Updated",
         ], 200);
+    }
+
+
+
+    public function mailTest(Request $request)
+    {
+        $request->validate([
+            "email" => "required|email",
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (is_null($user)) {
+            return response()->json([
+                "message" => "Email not found"
+            ], 404);
+        } else {
+            $message = "hello";
+            // Send the password reset email
+            Mail::to($request->email)->send(new ResetPasswordMail("HELLO A A A"));
+        }
     }
 }

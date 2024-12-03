@@ -30,12 +30,12 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            "name" => "staff",
-            "email" => "staff@gmail.com",
-            "position" => "staff",
+            "name" => "Thant Zin",
+            "email" => "thantzinhtet2001@gmail.com",
+            "position" => "Developer",
             "phone" => "09791314792",
             "role" => "admin",
-            "jd" => "This is Staff JD",
+            "jd" => "This is Developer JD",
             "annual_leave" => 0,
             "casual_leave" => 0,
             "probation_leave" => 0,
